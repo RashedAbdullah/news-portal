@@ -1,4 +1,4 @@
-import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        {/* Header */}
+        <Analytics />
         <header className="bg-green-600 text-white text-center py-4 shadow-md mb-4">
           <h1 className="text-2xl font-bold">News Portal</h1>
           <p className="text-sm">Stay updated with the latest news</p>
