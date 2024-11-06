@@ -5,7 +5,6 @@ export default async function NewsHome() {
   const topNews = await getTop();
 
   return (
-    
     <main className="bg-gray-50 min-h-screen p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Top News</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

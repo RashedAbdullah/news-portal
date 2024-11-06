@@ -15,9 +15,12 @@ export default function RootLayout({ children }) {
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6921856465558245"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></script>
-        <meta name="google-adsense-account" content="ca-pub-6921856465558245"></meta>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-6921856465558245"
+        ></meta>
       </head>
       <body className={`antialiased`}>
         <Analytics />
