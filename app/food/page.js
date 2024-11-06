@@ -1,6 +1,35 @@
 import { getFood } from "@/data/get-food";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
 import React from "react";
+
+// Adding SEO metadata for better search visibility
+export const metadata = {
+  title: "Food News",
+  description:
+    "Stay updated with the latest food trends, recipes, health tips, and more. Explore news from the food industry, including new product launches and culinary innovations.",
+  openGraph: {
+    type: "website",
+    title: "Food News",
+    description:
+      "Stay updated with the latest food trends, recipes, health tips, and more. Explore news from the food industry, including new product launches and culinary innovations.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with an appropriate image URL for your site
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://news-portal-global.vercel.app/food", // Replace with your actual URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Food News",
+    description:
+      "Stay updated with the latest food trends, recipes, health tips, and more. Explore news from the food industry, including new product launches and culinary innovations.",
+    image: "/favicon.png", // Replace with actual image URL
+  },
+};
 
 const FoodPage = async () => {
   let foods;
@@ -15,7 +44,7 @@ const FoodPage = async () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Food News</h1>
+      <h2 className="text-2xl font-bold mb-4">Food News</h2>
 
       {/* Display error message if there's an error */}
       {errorMessage ? (
@@ -27,7 +56,9 @@ const FoodPage = async () => {
               key={article.article_id || index}
               className="bg-white shadow p-4 rounded"
             >
-              <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+              {/* Structured Data Schema for SEO */}
+              <NewsSchemaScript article={article} category="Food" />
+              <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
               {article.image_url && (
                 <Image
                   unoptimized

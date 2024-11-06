@@ -1,6 +1,34 @@
 import { getWorld } from "@/data/get-world";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
-import React from "react";
+
+// SEO Metadata for the page
+export const metadata = {
+  title: "World News",
+  description:
+    "Stay updated with the latest global news, including politics, economics, sports, and more. Explore world events, trends, and stories from around the globe.",
+  openGraph: {
+    type: "website",
+    title: "World News",
+    description:
+      "Stay updated with the latest global news, including politics, economics, sports, and more. Explore world events, trends, and stories from around the globe.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with your image URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://yourwebsite.com/world", // Replace with your actual URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "World News",
+    description:
+      "Stay updated with the latest global news, including politics, economics, sports, and more. Explore world events, trends, and stories from around the globe.",
+    image: "/favicon.png", // Replace with actual image URL
+  },
+};
 
 const WorldPage = async () => {
   let world = null;
@@ -17,8 +45,10 @@ const WorldPage = async () => {
   if (errorMessage) {
     return (
       <div className="bg-gray-100 min-h-screen p-4">
-        <h1 className="text-2xl font-bold mb-4">World News</h1>
-        <p className="text-red-500">{errorMessage}</p>{" "}
+        <h2 className="text-2xl font-bold mb-4">World News</h2>
+        <p className="text-red-500" aria-live="assertive">
+          {errorMessage}
+        </p>{" "}
         {/* Display error message */}
       </div>
     );
@@ -27,14 +57,16 @@ const WorldPage = async () => {
   // If world data is successfully fetched, display the articles
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">World News</h1>
+      <h2 className="text-2xl font-bold mb-4">World News</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {world.results.map((article, index) => (
           <div
             key={article.article_id || index}
             className="bg-white shadow p-4 rounded"
           >
-            <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+            {/* Structured Data Schema for SEO */}
+            <NewsSchemaScript article={article} category="World" />
+            <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
             {article.image_url && (
               <Image
                 unoptimized

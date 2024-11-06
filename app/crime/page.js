@@ -1,6 +1,35 @@
 import { getCrime } from "@/data/get-crime";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
 import React from "react";
+
+// The new metadata format in Next.js 14
+export const metadata = {
+  title: "Crime News",
+  description:
+    "Stay updated with the latest crime news, reports, and incidents around the world. Get the latest updates on criminal activities, law enforcement, and investigations.",
+  openGraph: {
+    type: "website",
+    title: "Crime News",
+    description:
+      "Stay updated with the latest crime news, reports, and incidents around the world. Get the latest updates on criminal activities, law enforcement, and investigations.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with an appropriate image URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://news-portal-global.vercel.app/crime", // Replace with the actual page URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Crime News",
+    description:
+      "Stay updated with the latest crime news, reports, and incidents around the world. Get the latest updates on criminal activities, law enforcement, and investigations.",
+    image: "/favicon.png", // Replace with the actual image URL
+  },
+};
 
 const CrimePage = async () => {
   let crime;
@@ -15,7 +44,7 @@ const CrimePage = async () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Crime News</h1>
+      <h2 className="text-2xl font-bold mb-4">Crime News</h2>
 
       {/* Display error message if data fetch fails */}
       {errorMessage ? (
@@ -27,7 +56,9 @@ const CrimePage = async () => {
               key={article.article_id || index}
               className="bg-white shadow p-4 rounded"
             >
-              <h2 className="text-xl font-semibold mb-2">{article?.title}</h2>
+              {/* Structured Data Schema for SEO */}
+              <NewsSchemaScript article={article} category="Crime" />
+              <h1 className="text-xl font-semibold mb-2">{article?.title}</h1>
               {article?.image_url && (
                 <Image
                   unoptimized

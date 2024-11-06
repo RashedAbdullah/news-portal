@@ -1,6 +1,35 @@
 import { getPolitics } from "@/data/get-politics";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
 import React from "react";
+
+// Adding SEO metadata for better search visibility
+export const metadata = {
+  title: "Political News",
+  description:
+    "Get the latest updates on political news, government policies, elections, political analysis, and more from around the world.",
+  openGraph: {
+    type: "website",
+    title: "Political News",
+    description:
+      "Get the latest updates on political news, government policies, elections, political analysis, and more from around the world.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with an appropriate image URL for your site
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://news-portal-global.vercel.app/politics", // Replace with your actual URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Political News",
+    description:
+      "Get the latest updates on political news, government policies, elections, political analysis, and more from around the world.",
+    image: "/favicon.png", // Replace with actual image URL
+  },
+};
 
 const PoliticsPage = async () => {
   let politics;
@@ -15,7 +44,7 @@ const PoliticsPage = async () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Political News</h1>
+      <h2 className="text-2xl font-bold mb-4">Political News</h2>
 
       {/* Display error message if there's an error */}
       {errorMessage ? (
@@ -27,7 +56,9 @@ const PoliticsPage = async () => {
               key={article.article_id || index}
               className="bg-white shadow p-4 rounded"
             >
-              <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+              {/* Structured Data Schema for SEO */}
+              <NewsSchemaScript article={article} category="Politics" />
+              <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
               {article.image_url && (
                 <Image
                   src={article.image_url}

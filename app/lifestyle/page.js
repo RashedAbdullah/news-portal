@@ -1,6 +1,35 @@
 import { getLifeStyle } from "@/data/get-life-style";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
 import React from "react";
+
+// Adding SEO metadata for better search visibility
+export const metadata = {
+  title: "Lifestyle News",
+  description:
+    "Stay updated with the latest lifestyle news, trends, fashion tips, wellness advice, and lifestyle articles to enhance your everyday life.",
+  openGraph: {
+    type: "website",
+    title: "Lifestyle News",
+    description:
+      "Stay updated with the latest lifestyle news, trends, fashion tips, wellness advice, and lifestyle articles to enhance your everyday life.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with an appropriate image URL for your site
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://news-portal-global.vercel.app/lifestyle", // Replace with your actual URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lifestyle News",
+    description:
+      "Stay updated with the latest lifestyle news, trends, fashion tips, wellness advice, and lifestyle articles to enhance your everyday life.",
+    image: "/favicon.png", // Replace with actual image URL
+  },
+};
 
 const LifestylePage = async () => {
   let lifestyle;
@@ -15,7 +44,7 @@ const LifestylePage = async () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Lifestyle News</h1>
+      <h2 className="text-2xl font-bold mb-4">Lifestyle News</h2>
 
       {/* Display error message if there's an error */}
       {errorMessage ? (
@@ -27,7 +56,9 @@ const LifestylePage = async () => {
               key={article.article_id || index}
               className="bg-white shadow p-4 rounded"
             >
-              <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+              {/* Structured Data Schema for SEO */}
+              <NewsSchemaScript article={article} category="Lifestyle" />
+              <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
               {article.image_url && (
                 <Image
                   unoptimized

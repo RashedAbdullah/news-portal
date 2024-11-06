@@ -1,6 +1,35 @@
 import { getBusiness } from "@/data/get-business";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
 import React from "react";
+
+// The new metadata format in Next.js 14
+export const metadata = {
+  title: "Business News",
+  description:
+    "Stay updated with the latest business news, articles, and insights on the global economy, finance, and market trends.",
+  openGraph: {
+    type: "website",
+    title: "Business News",
+    description:
+      "Stay updated with the latest business news, articles, and insights on the global economy, finance, and market trends.",
+    images: [
+      {
+        url: "/favicon.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://news-portal-global.vercel.app/business",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Business News",
+    description:
+      "Stay updated with the latest business news, articles, and insights on the global economy, finance, and market trends.",
+    image: "/favicon.png",
+  },
+};
 
 const BusinessNewsPage = async () => {
   let businessNews;
@@ -15,7 +44,7 @@ const BusinessNewsPage = async () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Business News</h1>
+      <h2 className="text-2xl font-bold mb-4">Business News</h2>
 
       {/* Show error message if there's a fetching error */}
       {errorMessage ? (
@@ -27,7 +56,9 @@ const BusinessNewsPage = async () => {
               key={article.article_id || index}
               className="bg-white shadow p-4 rounded"
             >
-              <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+              {/* Structured Data Schema for SEO */}
+              <NewsSchemaScript article={article} category="Business" />
+              <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
               {article.image_url && (
                 <Image
                   unoptimized

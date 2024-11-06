@@ -1,5 +1,34 @@
 import { getNews } from "@/data/get-sports";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
+
+// Adding SEO metadata for better search visibility
+export const metadata = {
+  title: "Latest Sports News",
+  description:
+    "Stay updated with the latest sports news, including live scores, match highlights, sports analysis, and more from around the world.",
+  openGraph: {
+    type: "website",
+    title: "Latest Sports News",
+    description:
+      "Stay updated with the latest sports news, including live scores, match highlights, sports analysis, and more from around the world.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with your image URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://sports-portal-global.vercel.app/sports", // Replace with your actual URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Latest Sports News",
+    description:
+      "Stay updated with the latest sports news, including live scores, match highlights, sports analysis, and more from around the world.",
+    image: "/favicon.png", // Replace with actual image URL
+  },
+};
 
 const SportsPage = async () => {
   let sports = null;
@@ -16,7 +45,7 @@ const SportsPage = async () => {
   if (errorMessage) {
     return (
       <div className="bg-gray-100 min-h-screen p-4">
-        <h1 className="text-2xl font-bold mb-4">Latest Sports News</h1>
+        <h2 className="text-2xl font-bold mb-4">Latest Sports News</h2>
         <p className="text-red-500">{errorMessage}</p>{" "}
         {/* Display error message */}
       </div>
@@ -26,14 +55,16 @@ const SportsPage = async () => {
   // If sports data is successfully fetched, display the articles
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Latest Sports News</h1>
+      <h2 className="text-2xl font-bold mb-4">Latest Sports News</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sports.results.map((article, index) => (
           <div
             key={article.article_id || index}
             className="bg-white shadow p-4 rounded"
           >
-            <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+            {/* Structured Data Schema for SEO */}
+            <NewsSchemaScript article={article} category="Sports" />
+            <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
             {article.image_url && (
               <Image
                 src={article.image_url}

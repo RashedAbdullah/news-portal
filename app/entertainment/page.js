@@ -1,6 +1,35 @@
 import { getEntertainment } from "@/data/get-entertainment";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
 import React from "react";
+
+// Adding SEO metadata for better search visibility
+export const metadata = {
+  title: "Entertainment News",
+  description:
+    "Catch up with the latest entertainment news, celebrity updates, movie releases, music, and much more. Stay informed about the entertainment world.",
+  openGraph: {
+    type: "website",
+    title: "Entertainment News",
+    description:
+      "Catch up with the latest entertainment news, celebrity updates, movie releases, music, and much more. Stay informed about the entertainment world.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with the appropriate image URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://news-portal-global.vercel.app/entertainment", // Replace with actual URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Entertainment News",
+    description:
+      "Catch up with the latest entertainment news, celebrity updates, movie releases, music, and much more. Stay informed about the entertainment world.",
+    image: "/favicon.png", // Replace with actual image URL
+  },
+};
 
 const EntertainmentPage = async () => {
   let entertainments;
@@ -15,7 +44,7 @@ const EntertainmentPage = async () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Entertainment News</h1>
+      <h2 className="text-2xl font-bold mb-4">Entertainment News</h2>
 
       {/* Display error message if there's an error */}
       {errorMessage ? (
@@ -27,7 +56,9 @@ const EntertainmentPage = async () => {
               key={article.article_id || index}
               className="bg-white shadow p-4 rounded"
             >
-              <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+              {/* Structured Data Schema for SEO */}
+              <NewsSchemaScript article={article} category="Entertainment" />
+              <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
               {article.image_url && (
                 <Image
                   unoptimized

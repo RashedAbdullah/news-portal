@@ -1,6 +1,35 @@
 import { getEducation } from "@/data/get-education";
+import NewsSchemaScript from "@/meta/news-meta-script";
 import Image from "next/image";
 import React from "react";
+
+// The new metadata format in Next.js 14
+export const metadata = {
+  title: "Education News",
+  description:
+    "Stay updated with the latest education news, trends, research, and developments in schools, universities, and online learning platforms.",
+  openGraph: {
+    type: "website",
+    title: "Education News",
+    description:
+      "Stay updated with the latest education news, trends, research, and developments in schools, universities, and online learning platforms.",
+    images: [
+      {
+        url: "/favicon.png", // Replace with an appropriate image URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    url: "https://news-portal-global.vercel.app/education", // Replace with the actual page URL
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Education News",
+    description:
+      "Stay updated with the latest education news, trends, research, and developments in schools, universities, and online learning platforms.",
+    image: "/favicon.png", // Replace with the actual image URL
+  },
+};
 
 const EducationNewsPage = async () => {
   let educationNews;
@@ -15,7 +44,7 @@ const EducationNewsPage = async () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">Education News</h1>
+      <h2 className="text-2xl font-bold mb-4">Education News</h2>
 
       {/* Display error message if there's an error */}
       {errorMessage ? (
@@ -27,7 +56,9 @@ const EducationNewsPage = async () => {
               key={article.article_id || index}
               className="bg-white shadow p-4 rounded"
             >
-              <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+              {/* Structured Data Schema for SEO */}
+              <NewsSchemaScript article={article} category="Education" />
+              <h1 className="text-xl font-semibold mb-2">{article.title}</h1>
               {article.image_url && (
                 <Image
                   unoptimized
