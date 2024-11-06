@@ -1,6 +1,6 @@
 export const getNews = async () => {
   const res = await fetch(
-    `https://newsdata.io/api/1/news?apikey=pub_58337de68dd63520271f9de2ee196ae296fe9&country=bd&language=en&category=sports`,
+    `https://newsdata.io/api/1/news?apikey=${process.env.API_KEY}&country=bd&language=en&category=sports`,
     {
       next: { revalidate: 60 },
     }
