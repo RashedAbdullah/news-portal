@@ -2,8 +2,28 @@ import { getTop } from "@/data/get-top";
 import Image from "next/image";
 
 export default async function NewsHome() {
-  const topNews = await getTop();
+  let topNews = null;
+  let errorMessage = null;
 
+  try {
+    topNews = await getTop(); // Fetch the top news
+  } catch (error) {
+    console.error("Error fetching top news:", error);
+    errorMessage = "Failed to load top news. Please try again later."; // Error message for users
+  }
+
+  // If errorMessage exists, display it to the user
+  if (errorMessage) {
+    return (
+      <main className="bg-gray-50 min-h-screen p-6">
+        <h1 className="text-3xl font-bold mb-6 text-center">Top News</h1>
+        <p className="text-red-500 text-center">{errorMessage}</p>{" "}
+        {/* Display error message */}
+      </main>
+    );
+  }
+
+  // If topNews data is successfully fetched, display the articles
   return (
     <main className="bg-gray-50 min-h-screen p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Top News</h1>

@@ -3,8 +3,28 @@ import Image from "next/image";
 import React from "react";
 
 const WorldPage = async () => {
-  const world = await getWorld();
+  let world = null;
+  let errorMessage = null;
 
+  try {
+    world = await getWorld(); // Fetch the world news
+  } catch (error) {
+    console.error("Error fetching world news:", error);
+    errorMessage = "Failed to load world news. Please try again later."; // Error message for users
+  }
+
+  // If errorMessage exists, display it to the user
+  if (errorMessage) {
+    return (
+      <div className="bg-gray-100 min-h-screen p-4">
+        <h1 className="text-2xl font-bold mb-4">World News</h1>
+        <p className="text-red-500">{errorMessage}</p>{" "}
+        {/* Display error message */}
+      </div>
+    );
+  }
+
+  // If world data is successfully fetched, display the articles
   return (
     <div className="bg-gray-100 min-h-screen p-4">
       <h1 className="text-2xl font-bold mb-4">World News</h1>

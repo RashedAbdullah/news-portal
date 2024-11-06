@@ -1,10 +1,29 @@
 import { getTourism } from "@/data/get-tourism";
 import Image from "next/image";
-import React from "react";
 
 const TourismPage = async () => {
-  const tourism = await getTourism();
+  let tourism = null;
+  let errorMessage = null;
 
+  try {
+    tourism = await getTourism(); // Fetch the tourism news
+  } catch (error) {
+    console.error("Error fetching tourism news:", error);
+    errorMessage = "Failed to load tourism news. Please try again later."; // Error message for users
+  }
+
+  // If errorMessage exists, display it to the user
+  if (errorMessage) {
+    return (
+      <div className="bg-gray-100 min-h-screen p-4">
+        <h1 className="text-2xl font-bold mb-4">Tourism News</h1>
+        <p className="text-red-500">{errorMessage}</p>{" "}
+        {/* Display error message */}
+      </div>
+    );
+  }
+
+  // If tourism data is successfully fetched, display the articles
   return (
     <div className="bg-gray-100 min-h-screen p-4">
       <h1 className="text-2xl font-bold mb-4">Tourism News</h1>

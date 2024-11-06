@@ -1,9 +1,29 @@
 import { getNews } from "@/data/get-sports";
 import Image from "next/image";
-import React from "react";
 
 const SportsPage = async () => {
-  const sports = await getNews();
+  let sports = null;
+  let errorMessage = null;
+
+  try {
+    sports = await getNews(); // Fetch the sports news
+  } catch (error) {
+    console.error("Error fetching sports news:", error);
+    errorMessage = "Failed to load sports news. Please try again later."; // Error message for users
+  }
+
+  // If errorMessage exists, display it to the user
+  if (errorMessage) {
+    return (
+      <div className="bg-gray-100 min-h-screen p-4">
+        <h1 className="text-2xl font-bold mb-4">Latest Sports News</h1>
+        <p className="text-red-500">{errorMessage}</p>{" "}
+        {/* Display error message */}
+      </div>
+    );
+  }
+
+  // If sports data is successfully fetched, display the articles
   return (
     <div className="bg-gray-100 min-h-screen p-4">
       <h1 className="text-2xl font-bold mb-4">Latest Sports News</h1>
