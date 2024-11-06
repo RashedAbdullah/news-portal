@@ -1,6 +1,6 @@
-export const getPolitics = async () => {
+export const getLifeStyle = async () => {
   const res = await fetch(
-    `https://newsdata.io/api/1/news?apikey=pub_58337de68dd63520271f9de2ee196ae296fe9&language=en&category=politics`,
+    `https://newsdata.io/api/1/news?apikey=pub_58337de68dd63520271f9de2ee196ae296fe9&language=en&category=lifestyle`,
     {
       next: { revalidate: 60 },
     }

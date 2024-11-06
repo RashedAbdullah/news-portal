@@ -1,18 +1,20 @@
-import { getTop } from "@/data/get-top";
+import { getTourism } from "@/data/get-tourism";
 import Image from "next/image";
+import React from "react";
 
-export default async function NewsHome() {
-  const topNews = await getTop();
+const TourismPage = async () => {
+  const tourism = await getTourism();
 
   return (
-    <main className="bg-gray-50 min-h-screen p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Top News</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topNews.results.map((article, index) => (
+    <div className="bg-gray-100 min-h-screen p-4">
+      <h1 className="text-2xl font-bold mb-4">Tourism News</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {tourism.results.map((article, index) => (
           <div
             key={article.article_id || index}
-            className="bg-white shadow-lg rounded-lg p-4"
+            className="bg-white shadow p-4 rounded"
           >
+            <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
             {article.image_url && (
               <Image
                 unoptimized
@@ -20,29 +22,28 @@ export default async function NewsHome() {
                 height={200}
                 src={article.image_url}
                 alt={article.title}
-                className="w-full h-auto mb-4 rounded"
+                className="w-full h-auto mb-2 rounded"
               />
             )}
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              {article.title}
-            </h2>
             <p className="text-gray-500 text-sm mb-1">
               Published on: {new Date(article.pubDate).toLocaleString()}
             </p>
-            <p className="text-gray-700 mb-3">
+            <p className="text-gray-700 mb-2">
               {article.description || "No description available."}
             </p>
             <a
               href={article.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 font-semibold"
+              className="text-blue-500 mt-2 inline-block"
             >
-              Read more →
+              Read more
             </a>
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default TourismPage;

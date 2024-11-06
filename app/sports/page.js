@@ -1,4 +1,4 @@
-import { getNews } from "@/data/get-news";
+import { getNews } from "@/data/get-sports";
 import Image from "next/image";
 import React from "react";
 
